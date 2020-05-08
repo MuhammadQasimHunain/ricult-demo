@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ricult", "ricult\ricult.csproj", "{32A2B484-16C0-4F0A-A2D0-41F81F029A5B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{2A8C56AF-971E-46AC-BF97-207AC3280B00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{04C396D0-679A-4CC5-B7B1-84C557D6FC3F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseInfrastructure", "DatabaseInfrastructure", "{42DDA9B4-C273-442D-8BD3-F294D02FE8D7}"
+	ProjectSection(SolutionItems) = preProject
+		SqlScript.sql = SqlScript.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RicultApplication", "RicultApplication\RicultApplication.csproj", "{E1E645D2-20F1-4178-9A82-3166B84061C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RicultExercise", "RicultExercise\RicultExercise.csproj", "{2277ADED-AD59-491E-AA2D-EFD922BFB646}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32A2B484-16C0-4F0A-A2D0-41F81F029A5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A2B484-16C0-4F0A-A2D0-41F81F029A5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A2B484-16C0-4F0A-A2D0-41F81F029A5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A2B484-16C0-4F0A-A2D0-41F81F029A5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1E645D2-20F1-4178-9A82-3166B84061C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1E645D2-20F1-4178-9A82-3166B84061C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1E645D2-20F1-4178-9A82-3166B84061C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1E645D2-20F1-4178-9A82-3166B84061C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2277ADED-AD59-491E-AA2D-EFD922BFB646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2277ADED-AD59-491E-AA2D-EFD922BFB646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2277ADED-AD59-491E-AA2D-EFD922BFB646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2277ADED-AD59-491E-AA2D-EFD922BFB646}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{32A2B484-16C0-4F0A-A2D0-41F81F029A5B} = {2A8C56AF-971E-46AC-BF97-207AC3280B00}
+		{E1E645D2-20F1-4178-9A82-3166B84061C3} = {04C396D0-679A-4CC5-B7B1-84C557D6FC3F}
+		{2277ADED-AD59-491E-AA2D-EFD922BFB646} = {42DDA9B4-C273-442D-8BD3-F294D02FE8D7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5DAE6FCB-B707-41D0-9092-B1A8615D80E6}
+	EndGlobalSection
+EndGlobal
