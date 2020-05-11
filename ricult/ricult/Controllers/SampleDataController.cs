@@ -18,7 +18,7 @@ namespace ricult.Controllers
         }
 
         [HttpPost("[action]")]
-        public IEnumerable<PageItems> GetItemPost(SearchViewModel model)
+        public IEnumerable<PageItems> GetItemPost([FromBody]SearchViewModel model)
         {
             return SearchResultApplication.GetPageItems(model);
         }

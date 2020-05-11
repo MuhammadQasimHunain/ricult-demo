@@ -40,10 +40,10 @@ namespace RicultExercise.Util
                     if (searchViewModel.SowingEndDate != null) command.Parameters.AddWithValue("@sowing_end_date", searchViewModel.SowingEndDate);
                     if (searchViewModel.HarvestStartDate != null) command.Parameters.AddWithValue("@harvest_start_date", searchViewModel.HarvestStartDate);
                     if (searchViewModel.HarvestEndDate != null) command.Parameters.AddWithValue("@harvest_end_date", searchViewModel.HarvestEndDate);
-                    if (searchViewModel.FarmSizeStart != null) command.Parameters.AddWithValue("@farm_size_start", searchViewModel.FarmSizeStart);
-                    if (searchViewModel.FarmSizeEnd != null) command.Parameters.AddWithValue("@farm_size_end", searchViewModel.FarmSizeEnd);
+                    if (searchViewModel.FarmSizeStart != 0) command.Parameters.AddWithValue("@farm_size_start", searchViewModel.FarmSizeStart);
+                    if (searchViewModel.FarmSizeEnd != 0) command.Parameters.AddWithValue("@farm_size_end", searchViewModel.FarmSizeEnd);
                     if (searchViewModel.FarmState != null) command.Parameters.AddWithValue("@farm_state", searchViewModel.FarmState);
-                    if (searchViewModel.FarmRanking != null) command.Parameters.AddWithValue("@farm_ranking", searchViewModel.FarmRanking);
+                    if (searchViewModel.FarmRanking != 0) command.Parameters.AddWithValue("@farm_ranking", searchViewModel.FarmRanking);
                 }
                 // Open the connection in a try/catch block.
                 // Create and execute the DataReader, writing the result
@@ -54,25 +54,22 @@ namespace RicultExercise.Util
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        PageItems pageItem = new PageItems();
-                        pageItem.Region = reader[0].ToString();
-                        pageItem.NationalId = reader[1].ToString();
-                        pageItem.FirstName = reader[2].ToString();
-                        pageItem.LastName = reader[3].ToString();
-                        pageItem.Country = reader[4].ToString();
-                        pageItem.CropType = reader[5].ToString();
-                        pageItem.SowingDate =
-                            !string.Equals(reader[6].ToString(), string.Empty) ? DateTime.Parse(reader[6].ToString()) : (DateTime?)null;
-                        pageItem.HarvestDate =
-                            !string.Equals(reader[7].ToString(), string.Empty) ? DateTime.Parse(reader[7].ToString()) : (DateTime?)null;
-                        pageItem.FarmSize =
-                            !string.Equals(reader[8].ToString(), string.Empty) ? int.Parse(reader[8].ToString()) : (int?)null;
-                        pageItem.FarmState = reader[9].ToString();
-                        pageItem.FarmRanking =
-                            !string.Equals(reader[10].ToString(), string.Empty) ? int.Parse(reader[10].ToString()) : (int?)null;
-                        pageItem.Village = reader[11].ToString();
-                        pageItem.Email = reader[12].ToString();
-                        pageItems.Add(pageItem);
+                        pageItems.Add(new PageItems
+                        {
+                            Region = reader[0].ToString(),
+                            NationalId = reader[1].ToString(),
+                            FirstName = reader[2].ToString(),
+                            LastName = reader[3].ToString(),
+                            Country = reader[4].ToString(),
+                            CropType = reader[5].ToString(),
+                            SowingDate = !string.Equals(reader[6].ToString(), string.Empty) ? DateTime.Parse(reader[6].ToString()) : (DateTime?)null,
+                            HarvestDate = !string.Equals(reader[7].ToString(), string.Empty) ? DateTime.Parse(reader[7].ToString()) : (DateTime?)null,
+                            FarmSize = !string.Equals(reader[8].ToString(), string.Empty) ? int.Parse(reader[8].ToString()) : (int?)null,
+                            FarmState = reader[9].ToString(),
+                            FarmRanking = !string.Equals(reader[10].ToString(), string.Empty) ? int.Parse(reader[10].ToString()) : (int?)null,
+                            Village = reader[11].ToString(),
+                            Email = reader[12].ToString(),
+                        });
                     }
 
                     reader.Close();

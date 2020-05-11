@@ -476,28 +476,37 @@ ALTER TABLE [dbo].[users] ADD  DEFAULT (NULL) FOR [organization_user_type]
 GO
 
 
-create PROCEDURE SearchFarms
-@RegionProvince [varchar](180) ,
-@national_id [varchar](180),
-@first_name [varchar](180),
-@last_name [varchar](180),
-@country [varchar](180),
-@crop_type [varchar](180),
-@sowing_start_date date,
-@sowing_end_date date,
-@harvest_start_date date,
-@harvest_end_date date,
-@farm_size_start int,
-@farm_size_end int,
-@farm_state [varchar](180),
-@farm_ranking [varchar](180)
+alter PROCEDURE SearchFarms
+@RegionProvince [varchar](180) = null, 
+@national_id [varchar](180) = null, 
+@first_name [varchar](180) = null, 
+@last_name [varchar](180) = null, 
+@country [varchar](180) = null, 
+@crop_type [varchar](180) = null, 
+@sowing_start_date date = null, 
+@sowing_end_date date = null, 
+@harvest_start_date date = null, 
+@harvest_end_date date = null,
+@farm_size_start int = null, 
+@farm_size_end int = null, 
+@farm_state [varchar](180) = null, 
+@farm_ranking [varchar](180) = null
 AS
 
 SELECT
-    f.region as 'Farm Region',
-	f.first_name as 'Farm first Name',
-	c.first_name as 'Crop first Name',
-	u.first_name as 'User first name'
+    f.region as 'FarmRegion',
+	f.national_id as 'national_id',
+	u.first_name as 'FirstName',
+	u.last_name as 'LastName',
+	u.country as 'UserCountry',
+	c.crop_type as 'CropType',
+	c.sowing_date as 'SowingDate',
+	c.harvest_date as 'HarvestDate',
+	f.current_awhere_id as 'FarmSize',
+	f.district as 'FarmState',
+	f.awhere_id as 'FarmRanking',
+	u.village as 'Village',
+	u.email as 'Email'
 FROM
     users u
 JOIN farms f 
@@ -505,5 +514,13 @@ JOIN farms f
 left join crop_cycles c
 	ON c.farmer_id = u.id
 	OR c.farm_id = f.id
+where
+	(f.region like '%'+@RegionProvince+'%' OR @RegionProvince IS NULL)
+	AND (f.national_id like '%'+@national_id+'%' OR @national_id IS NULL)
+	AND (f.first_name like '%'+@first_name+'%' OR @first_name IS NULL)
+	AND (f.last_name like '%'+@last_name+'%' OR @last_name IS NULL)
+	AND (u.country like '%'+@country+'%' OR @country IS NULL)
+	AND (c.crop_type like '%'+@crop_type+'%' OR @crop_type IS NULL)
+
 
 
