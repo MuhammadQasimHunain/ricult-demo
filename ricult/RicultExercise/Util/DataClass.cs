@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Net.Http.Headers;
-using System.Text;
+using Microsoft.Extensions.Configuration;
 using RicultExercise.ViewModels;
 
 namespace RicultExercise.Util
 {
     public class DataClass
     {
+        private IConfiguration _config;
 
-        public static List<PageItems> GetPagedList(SearchViewModel searchViewModel = null)
+        public DataClass(IConfiguration iConfiguration)
+        {
+            _config = iConfiguration;
+        }
+
+        public List<PageItems> GetPagedList(SearchViewModel searchViewModel = null)
         {
             List<PageItems> pageItems = new List<PageItems>();
-            string connectionString =
-                "Server=CRLHW-HUNAIQAS2\\SQLEXPRESS;Database=ricult_exercise;Trusted_Connection=True;";
-            //ConfigurationManager.ConnectionStrings["ricultDatabase"].ConnectionString;
+            string connectionString = _config.GetSection("Settings").GetSection("ricultDatabase").Value;
+            
 
             // Provide the query string with a parameter placeholder.
             string queryString = string.Format("SearchFarms");

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 using RicultExercise.Util;
 using RicultExercise.ViewModels;
 
@@ -8,14 +9,21 @@ namespace RicultApplication
 {
     public class SearchResultApplication
     {
-        public static List<PageItems> GetPageItems()
+        private IConfiguration _config;
+
+        public SearchResultApplication(IConfiguration iConfiguration)
         {
-            return DataClass.GetPagedList();
+            _config = iConfiguration;
         }
 
-        public static List<PageItems> GetPageItems(SearchViewModel model)
+        public List<PageItems> GetPageItems()
         {
-            return DataClass.GetPagedList(model);
+            return new DataClass(_config).GetPagedList();
+        }
+
+        public List<PageItems> GetPageItems(SearchViewModel model)
+        {
+            return new DataClass(_config).GetPagedList(model);
         }
     }
 }
