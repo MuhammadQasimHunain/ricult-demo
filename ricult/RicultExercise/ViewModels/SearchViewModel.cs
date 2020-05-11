@@ -19,7 +19,7 @@ namespace RicultExercise.ViewModels
         public int FarmSizeStart { get; set; }
         public int FarmSizeEnd { get; set; }
         public string FarmState { get; set; }
-        public int FarmRanking { get; set; }
+        public int Village { get; set; }
 
     }
 }

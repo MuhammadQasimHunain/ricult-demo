@@ -88,14 +88,15 @@
     </div>
 
     <div class="form-group col-sm-6">
-      <label for="farmRanking">Crop Type</label>
-      <input type="number" class="form-control" id="farmRanking"
-             [(ngModel)]="model.farmRanking" name="farmRanking">
+      <label for="village">Crop Type</label>
+      <input type="number" class="form-control" id="village"
+             [(ngModel)]="model.village" name="village">
     </div>
   </div>
 
   &nbsp;&nbsp;
   <button type="button" class="btn btn-default" (click)="SearchView()">Search</button>
+  <button type="button" class="btn btn-default" (click)="reset()">Reset</button>
 </form>
 
 <p *ngIf="!resultData"><em>Loading...</em></p>

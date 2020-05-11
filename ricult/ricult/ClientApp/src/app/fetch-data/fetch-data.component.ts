@@ -30,6 +30,11 @@ export class FetchDataComponent {
 
   }
 
+  reset() {
+    this.model = new SearchViewModel();
+    this.SearchList(this.model);
+  }
+
   SearchView() {
     this.SearchList(this.model);
   }
@@ -59,7 +64,7 @@ class SearchViewModel {
   farmSizeStart: number;
   farmSizeEnd: number;
   farmState: string;
-  farmRanking: number;
+  village: number;
 }
 
 interface PageItems {

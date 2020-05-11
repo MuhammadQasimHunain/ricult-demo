@@ -1,6 +1,6 @@
 ﻿USE [ricult_exercise]
 GO
-/****** Object:  Table [dbo].[crop_cycles]    Script Date: 5/9/2020 12:24:51 AM ******/
+/****** Object:  Table [dbo].[crop_cycles]    Script Date: 5/11/2020 10:14:13 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -90,7 +90,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[farms]    Script Date: 5/9/2020 12:24:51 AM ******/
+/****** Object:  Table [dbo].[farms]    Script Date: 5/11/2020 10:14:13 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -124,7 +124,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[users]    Script Date: 5/9/2020 12:24:51 AM ******/
+/****** Object:  Table [dbo].[users]    Script Date: 5/11/2020 10:14:13 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -222,7 +222,7 @@ INSERT [dbo].[users] ([region], [country], [village], [full_name], [id], [userna
 SET IDENTITY_INSERT [dbo].[users] OFF
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [national_id]    Script Date: 5/9/2020 12:24:51 AM ******/
+/****** Object:  Index [national_id]    Script Date: 5/11/2020 10:14:13 PM ******/
 ALTER TABLE [dbo].[users] ADD  CONSTRAINT [national_id] UNIQUE NONCLUSTERED 
 (
 	[national_id] ASC
@@ -230,7 +230,7 @@ ALTER TABLE [dbo].[users] ADD  CONSTRAINT [national_id] UNIQUE NONCLUSTERED
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [username]    Script Date: 5/9/2020 12:24:51 AM ******/
+/****** Object:  Index [username]    Script Date: 5/11/2020 10:14:13 PM ******/
 ALTER TABLE [dbo].[users] ADD  CONSTRAINT [username] UNIQUE NONCLUSTERED 
 (
 	[username] ASC
@@ -474,9 +474,12 @@ ALTER TABLE [dbo].[users] ADD  DEFAULT (NULL) FOR [segment]
 GO
 ALTER TABLE [dbo].[users] ADD  DEFAULT (NULL) FOR [organization_user_type]
 GO
-
-
-alter PROCEDURE SearchFarms
+/****** Object:  StoredProcedure [dbo].[SearchFarms]    Script Date: 5/11/2020 10:14:13 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SearchFarms]
 @RegionProvince [varchar](180) = null, 
 @national_id [varchar](180) = null, 
 @first_name [varchar](180) = null, 
@@ -490,7 +493,7 @@ alter PROCEDURE SearchFarms
 @farm_size_start int = null, 
 @farm_size_end int = null, 
 @farm_state [varchar](180) = null, 
-@farm_ranking [varchar](180) = null
+@village [varchar](180) = null
 AS
 
 SELECT
@@ -515,12 +518,16 @@ left join crop_cycles c
 	ON c.farmer_id = u.id
 	OR c.farm_id = f.id
 where
-	(f.region like '%'+@RegionProvince+'%' OR @RegionProvince IS NULL)
+	(@RegionProvince Is NULL OR f.region LIKE '%'+@RegionProvince+'%')
 	AND (f.national_id like '%'+@national_id+'%' OR @national_id IS NULL)
 	AND (f.first_name like '%'+@first_name+'%' OR @first_name IS NULL)
 	AND (f.last_name like '%'+@last_name+'%' OR @last_name IS NULL)
 	AND (u.country like '%'+@country+'%' OR @country IS NULL)
 	AND (c.crop_type like '%'+@crop_type+'%' OR @crop_type IS NULL)
-
-
-
+	AND (f.district like '%'+@farm_state+'%' OR @farm_state IS NULL)
+	AND (u.village like '%'+@village+'%' OR @village IS NULL)
+	AND ((c.harvest_date >= @harvest_start_date OR @harvest_start_date IS NULL)
+	and (c.harvest_date <= @harvest_end_date OR @harvest_end_date IS NULL))
+	AND ((c.sowing_date >= @sowing_start_date OR @sowing_start_date IS NULL)
+	And (c.sowing_date <= @harvest_end_date OR @harvest_end_date IS NULL))
+GO
