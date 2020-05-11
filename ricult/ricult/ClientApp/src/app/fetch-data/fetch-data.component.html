@@ -1,24 +1,138 @@
-<h1>Weather forecast</h1>
+<h1>Advance Search</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+  <div class="col-sm-12">
+    <div class="form-group col-sm-3">
+      <label for="regionProvince">Region Province</label>
+      <input type="text" class="form-control" id="regionProvince"
+             required
+             [(ngModel)]="model.regionProvince" name="regionProvince">
+    </div>
 
-<p *ngIf="!forecasts"><em>Loading...</em></p>
+    <div class="form-group col-sm-3">
+      <label for="nationalId">National Id</label>
+      <input type="text" class="form-control" id="nationalId"
+             [(ngModel)]="model.nationalId" name="nationalId">
+    </div>
+    <div class="form-group col-sm-3">
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control" id="firstName"
+             [(ngModel)]="model.firstName" name="firstName">
+    </div>
+    <div class="form-group col-sm-3">
+      <label for="lastName">Last Name</label>
+      <input type="text" class="form-control" id="lastName"
+             [(ngModel)]="model.lastName" name="lastName">
+    </div>
+  </div>
 
-<table class='table' *ngIf="forecasts">
+
+  <div class="col-sm-12">
+    <div class="form-group col-sm-3">
+      <label for="country">Country</label>
+      <input type="text" class="form-control" id="country"
+             required
+             [(ngModel)]="model.country" name="country">
+    </div>
+
+    <div class="form-group col-sm-3">
+      <label for="nationalId">Crop Type</label>
+      <input type="text" class="form-control" id="cropType"
+             [(ngModel)]="model.cropType" name="cropType">
+    </div>
+    <div class="form-group col-sm-3">
+      <label for="firstName">Sowing Start Date</label>
+      <input type="date" class="form-control" id="sowingStartDate"
+             [(ngModel)]="model.sowingStartDate" name="sowingStartDate">
+    </div>
+    <div class="form-group col-sm-3">
+      <label for="sowingEndDate">Sowing End Date</label>
+      <input type="date" class="form-control" id="sowingEndDate"
+             [(ngModel)]="model.sowingEndDate" name="sowingEndDate">
+    </div>
+  </div>
+
+
+  <div class="col-sm-12">
+    <div class="form-group col-sm-3">
+      <label for="harvestStartDate">Harvest Start Date</label>
+      <input type="date" class="form-control" id="harvestStartDate"
+             required
+             [(ngModel)]="model.harvestStartDate" name="harvestStartDate">
+    </div>
+
+    <div class="form-group col-sm-3">
+      <label for="harvestEndDate">Harvest End Date</label>
+      <input type="date" class="form-control" id="harvestEndDate"
+             [(ngModel)]="model.harvestEndDate" name="harvestEndDate">
+    </div>
+    <div class="form-group col-sm-3">
+      <label for="farmSizeStart">Farm Size Start</label>
+      <input type="number" class="form-control" id="farmSizeStart"
+             [(ngModel)]="model.farmSizeStart" name="farmSizeStart">
+    </div>
+    <div class="form-group col-sm-3">
+      <label for="farmSizeEnd">Farm Size End</label>
+      <input type="number" class="form-control" id="farmSizeEnd"
+             [(ngModel)]="model.farmSizeEnd" name="farmSizeEnd">
+    </div>
+  </div>
+
+
+  <div class="col-sm-12">
+    <div class="form-group col-sm-3">
+      <label for="farmState">Farm State</label>
+      <input type="text" class="form-control" id="farmState"
+             required
+             [(ngModel)]="model.farmState" name="farmState">
+    </div>
+
+    <div class="form-group col-sm-3">
+      <label for="farmRanking">Crop Type</label>
+      <input type="number" class="form-control" id="farmRanking"
+             [(ngModel)]="model.farmRanking" name="farmRanking">
+    </div>
+  </div>
+
+  &nbsp;&nbsp;
+  <button type="button" class="btn btn-default" (click)="SearchView()">Search</button>
+</form>
+
+<p *ngIf="!resultData"><em>Loading...</em></p>
+
+<table class='table' *ngIf="resultData">
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
+      <th>Region</th>
+      <th>National Id</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Country</th>
+      <th>Crop Type</th>
+      <th>Sowing Date</th>
+      <th>Harvest Date</th>
+      <th>Farm Size</th>
+      <th>Farm State</th>
+      <th>Farm Ranking</th>
+      <th>Village</th>
+      <th>Email Date</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.dateFormatted }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
+    <tr *ngFor="let data of resultData">
+      <td>{{ data.region }}</td>
+      <td>{{ data.nationalId }}</td>
+      <td>{{ data.firstName }}</td>
+      <td>{{ data.lastName }}</td>
+      <td>{{ data.country }}</td>
+      <td>{{ data.cropType }}</td>
+      <td>{{ data.sowingDate | date : 'dd.MM.y' }}</td>
+      <td>{{ data.harvestDate | date : 'dd.MM.y' }}</td>
+      <td>{{ data.farmSize }}</td>
+      <td>{{ data.farmState }}</td>
+      <td>{{ data.farmRanking }}</td>
+      <td>{{ data.village }}</td>
+      <td>{{ data.email }}</td>
     </tr>
   </tbody>
 </table>

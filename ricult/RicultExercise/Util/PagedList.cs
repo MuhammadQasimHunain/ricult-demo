@@ -7,6 +7,10 @@ namespace RicultExercise.Util
 {
     public class PagedList<T>
     {
+        public PagedList()
+        {
+                
+        }
         public PagedList(IQueryable<T> queryable, PagedListParameters parameters)
         {
             if (queryable == null)
